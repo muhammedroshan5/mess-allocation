@@ -1,0 +1,172 @@
+<!DOTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Student Details</title>
+  <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/en/e/e3/This_is_the_logo_of_NIT_Calicut.svg" />
+
+<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v11/vendor/bootstrap/css/bootstrap.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v11/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v11/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v11/vendor/animate/animate.css">
+
+<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v11/vendor/css-hamburgers/hamburgers.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v11/vendor/select2/select2.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v11/css/util.css">
+<link rel="stylesheet" type="text/css" href="https://colorlib.com/etc/lf/Login_v11/css/main.css">
+
+<meta name="robots" content="noindex, follow">
+</head>
+
+<!-- Bootstrap  -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+<!-- google fonts -->
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Ubuntu&display=swap" rel="stylesheet"> -->
+
+<!-- favicon -->
+<!-- <link rel="icon" href="images/favicon.ico"> -->
+
+<!-- css -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile_style.css') }}">
+
+<!-- font awesome -->
+<!-- <script src="https://kit.fontawesome.com/93cd58d5b2.js" crossorigin="anonymous"></script> -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+    </script>  
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+    </script>  
+    
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />  
+
+<body>	       
+<div class="limiter">
+<div class="container-login100">
+    <div class="container rounded bg-white mt-5 mb-5">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('admin',username=username) }}">Home</a>
+              </li>
+            </ul>
+            <span class="navbar-text">
+              <a href="{{ url_for('logout') }}">Logout</a>
+            </span>
+          </div>
+        </div>
+      </nav>
+        <div class="row">
+            <div class="col-md-2 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                </div>
+            </div>
+            <div class="col-md-8 border-right">
+                <div class="p-3 py-5">
+                    <center><h4 class="text-center">Admin Dashboard</h4></center>
+                    {% for message in get_flashed_messages() %}
+  <div id="InfoBanner" style="">
+  <span class="reversed reversedRight">
+    <span>
+      &#9888;
+    </span>
+  </span>
+  <span class="reversed reversedLeft">
+    {{ message }}
+  </span> 
+</div>
+    {% endfor %}  
+            <br>
+                    <form method=post>  
+                      <div class="container">   
+                            
+                        <div class="mt-5 text-center">
+                          <div style="display: inline-block;"><center><input type="text" name="username" placeholder="Search student" class="form-control" value="{{ request.form['username'] }}" id="tags" style="width: 100%; padding-right: .5em;"></input></center>
+                          <script>
+                          $( function() {
+                            var availableTags = [
+                            {% for students in student_list %}
+                              "{{students}}",
+                            {% endfor %}
+                            ];
+                            $( "#tags" ).autocomplete({
+                              source: availableTags
+                            });
+                          });
+                          </script>
+                          </div>
+                          <div style="display: inline-block;"><button class="btn btn-dark profile-button" type="submit" name="action" value="search"><i class="fa fa-search"></i></button></div>
+                          <div><button style="margin-top: 2%;"class="btn btn-dark profile-button" type="submit" name="action" value="add">Add Student</button></div>
+                        </div>
+                      </div>
+                    </form>
+        
+                </div>
+            </div>
+            <div class="col-md-2 border-right position-relative"><form method=post>
+              <button type="submit" name="download" value="download"><span class="position-absolute bottom-0 my-text">Download sheet</span></button></form>
+              <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+              </div>
+            </div>
+
+            <center><h3>Students List</h3></center> 
+                <div class="container" style="padding-bottom: 3%;overflow: visible;">   
+                    <div class="mt-5 text-center">
+                        <center>
+                          <table class="table table-striped table-secondary" style="width: 90%;">
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Roll Number</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Hostel</th>
+                                <th scope="col">Room</th>
+                                <th scope="col">Mess</th>
+                                <th scope="col">Dues</th>
+                                <th scope="col">#edit</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% for stud in student %}
+                                    <tr>
+                                        <td>{{stud['name']}}</td>
+                                        <td>{{stud['username']}}</td>
+                                        <td>{{stud['gender']}}</td>
+                                        <td>{{stud['hostel']}}</td>
+                                        <td>{{stud['room']}}</td>
+                                        <td>{{stud['mess']}}</td>
+                                        <td>{{stud['due']}}</td>
+                                        <td><a href="{{ url_for('edit_student',username=user['username'], studname=stud['name']) }}">
+    <span class="badge badge-danger"  style="color:blue;" class="txt">Edit</span></a></td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        </center>    
+                    </div>
+                </div> 
+                </div>
+                </div>
+        
+        </div>
+    </div>
+</body>
+</html>

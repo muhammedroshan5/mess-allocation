@@ -1,0 +1,6 @@
+source my_env/bin/activate
+export FLASK_APP=mess
+export FLASK_ENV=development
+flask run
+
+python3 init_db.py
